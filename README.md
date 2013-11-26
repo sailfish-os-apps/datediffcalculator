@@ -1,4 +1,4 @@
 datediffcalculator
 ==================
 
-Sailfish Date DIfference Calculator
+Sailfish Date Difference Calculator
