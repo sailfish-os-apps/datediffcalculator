@@ -26,6 +26,15 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
+        // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
+        PullDownMenu {
+            MenuItem {
+                text: "About"
+                onClicked: pageStack.push(Qt.resolvedUrl("About.qml"))
+            }
+        }
+
+
         // Tell SilicaFlickable the height of its content.
         contentHeight: column.height
 
