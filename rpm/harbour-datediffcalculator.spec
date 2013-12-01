@@ -14,7 +14,7 @@ Name:       harbour-datediffcalculator
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Date difference calculator
 Version:    1.1
-Release:    2
+Release:    1
 Group:      Qt/Qt
 License:    LICENSE
 Source0:    %{name}-%{version}.tar.bz2
