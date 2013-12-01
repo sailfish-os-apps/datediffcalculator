@@ -25,6 +25,8 @@
 DateDiffCalculatorBackend::DateDiffCalculatorBackend(QObject *parent)
     : QObject(parent)
 {
+    startDate = QDateTime::currentDateTime();
+    endDate = QDateTime::currentDateTime();
 }
 
 QString

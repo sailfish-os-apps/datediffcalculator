@@ -1,13 +1,13 @@
 Name: harbour-datediffcalculator
 Summary: Date difference calculator
-Version: 1.0
-Release: 1
+Version: 1.1
+Release: 2
 Group: Qt/Qt
 License: LICENSE
 Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
-  Short description of my SailfishOS Application
+  Calculates difference between two dates
 Configure: none
 Builder: qtc5
 PkgConfigBR:

@@ -32,8 +32,11 @@ Page {
                 text: "About"
                 onClicked: pageStack.push(Qt.resolvedUrl("About.qml"))
             }
+            MenuItem {
+                text: "Reset dates"
+                onClicked: backend.reset()
+            }
         }
-
 
         // Tell SilicaFlickable the height of its content.
         contentHeight: column.height
@@ -53,10 +56,8 @@ Page {
                 id: startDate
                 baseText: "Start date:"
                 anchors.horizontalCenter: parent.horizontalCenter
-                onTextChanged: {
-                    console.log("Start date changed")
-                    backend.setStartDate(startDate.date)
-                }
+                date: backend.startDate
+                onAccepted: backend.startDate = acceptedDate
             }
 
             Label {
@@ -71,10 +72,8 @@ Page {
                 id: endDate
                 baseText: "End date:"
                 anchors.horizontalCenter: parent.horizontalCenter
-                onTextChanged: {
-                    console.log("End date changed")
-                    backend.setEndDate(endDate.date)
-                }
+                date: backend.endDate
+                onAccepted: backend.endDate = acceptedDate
             }
 
             Column {

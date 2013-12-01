@@ -36,6 +36,8 @@ class DateDiffCalculatorBackend : public QObject
 
     void updateDiff();
 
+    Q_PROPERTY(QDateTime startDate  READ getStartDate     WRITE setStartDate  NOTIFY startDateChanged)
+    Q_PROPERTY(QDateTime endDate    READ getEndDate       WRITE setEndDate    NOTIFY endDateChanged)
     Q_PROPERTY(QString diffInDays   READ getDiffInDays   NOTIFY diffInDaysChanged   STORED false)
     Q_PROPERTY(QString diffInMonths READ getDiffInMonths NOTIFY diffInMonthsChanged STORED false)
     Q_PROPERTY(QString diffInYears  READ getDiffInYears  NOTIFY diffInYearsChanged  STORED false)
@@ -44,12 +46,25 @@ public:
     DateDiffCalculatorBackend(QObject *parent = 0);
     virtual ~DateDiffCalculatorBackend() {}
 
-    Q_INVOKABLE inline void setStartDate(const QDateTime &dateTime) {
-        startDate = dateTime;
+    Q_INVOKABLE void reset() {
+        startDate = QDateTime::currentDateTime();
+        endDate = QDateTime::currentDateTime();
+        startDateChanged();
+        endDateChanged();
         updateDiff();
     }
-    Q_INVOKABLE inline void setEndDate(const QDateTime &dateTime) {
+
+    inline const QDateTime &getStartDate()   const { return startDate; }
+    inline void setStartDate(const QDateTime &dateTime) {
+        startDate = dateTime;
+        startDateChanged();
+        updateDiff();
+    }
+
+    inline const QDateTime &getEndDate()   const { return endDate; }
+    inline void setEndDate(const QDateTime &dateTime) {
         endDate = dateTime;
+        endDateChanged();
         updateDiff();
     }
 
@@ -58,6 +73,9 @@ public:
     inline const QString &getDiffInYears()  const { return diffInYears; }
 
 signals:
+    void startDateChanged();
+    void endDateChanged();
+
     void diffInDaysChanged();
     void diffInMonthsChanged();
     void diffInYearsChanged();

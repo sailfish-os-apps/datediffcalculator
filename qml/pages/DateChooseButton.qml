@@ -6,7 +6,11 @@ Button {
     property string baseText: "Date"
     property date date: new Date()
 
-    text: baseText + " " + Qt.formatDate(date)
+    signal accepted(date acceptedDate)
+
+    function updateText() {
+        root.text = baseText + " " + Qt.formatDate(date);
+    }
 
     DatePickerDialog {
         id: datePicker
@@ -17,9 +21,11 @@ Button {
             date: root.date
         })
         dialog.accepted.connect(function() {
-            root.date = dialog.date
+            root.accepted(dialog.date)
         })
     }
+
+    onDateChanged: updateText()
 }
 
 
