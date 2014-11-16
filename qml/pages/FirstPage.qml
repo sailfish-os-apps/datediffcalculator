@@ -95,6 +95,11 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 Label {
+                    text: backend.diffInWeeks
+                    font.pixelSize: Theme.fontSizeSmall
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Label {
                     text: backend.diffInMonths
                     font.pixelSize: Theme.fontSizeSmall
                     anchors.horizontalCenter: parent.horizontalCenter

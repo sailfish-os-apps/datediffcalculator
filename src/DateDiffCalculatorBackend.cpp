@@ -25,8 +25,7 @@
 DateDiffCalculatorBackend::DateDiffCalculatorBackend(QObject *parent)
     : QObject(parent)
 {
-    startDate = QDateTime::currentDateTime();
-    endDate = QDateTime::currentDateTime();
+    resetStartEndDate();
 }
 
 QString
@@ -41,13 +40,14 @@ normalizeFloatStr(const QString &in) {
 void
 DateDiffCalculatorBackend::updateDiff() {
     diffInDays   = QString();
+    diffInWeeks  = QString();
     diffInMonths = QString();
     diffInYears  = QString();
 
     QTimeSpan span = endDate - startDate;
 
-    int diffDays = (int)span.toDays();
-    qDebug() << "updateDiff called, diff in days" << diffDays;
+    int diffDays = qRound(span.toDays());
+    qDebug() << "updateDiff called, diff in days" << diffDays << ", raw diff in days" << span.toDays();
 
     if (diffDays != 0) {
         diffDays = qAbs(diffDays);
@@ -56,18 +56,26 @@ DateDiffCalculatorBackend::updateDiff() {
 
         qreal diffMonths = span.toMonths();
         qreal diffYears = span.toYears();
+        qreal diffWeeks = span.toWeeks();
 
         QString monthsStr = QString::number(diffMonths, 'f', 1);
         QString yearsStr = QString::number(diffYears, 'f', 1);
+        QString weeksStr = QString::number(diffWeeks, 'f', 1);
         monthsStr = normalizeFloatStr(monthsStr);
         yearsStr = normalizeFloatStr(yearsStr);
+        weeksStr = normalizeFloatStr(weeksStr);
 
+        if (!weeksStr.isEmpty())
+            diffInWeeks = "or " + weeksStr + (weeksStr == "1" ? " week" : " weeks");
         if (!monthsStr.isEmpty())
             diffInMonths = "or " + monthsStr + (monthsStr == "1" ? " month" : " months");
         if (!yearsStr.isEmpty())
             diffInYears = "or " + yearsStr + (yearsStr == "1" ? " year" : " years");
+        if (!yearsStr.isEmpty())
+            diffInYears = "or " + yearsStr + (yearsStr == "1" ? " year" : " years");
     }
     emit diffInDaysChanged();
+    emit diffInWeeksChanged();
     emit diffInMonthsChanged();
     emit diffInYearsChanged();
 }
