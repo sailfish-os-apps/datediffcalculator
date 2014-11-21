@@ -22,7 +22,14 @@ import "pages"
 
 ApplicationWindow
 {
-    initialPage: FirstPage { }
+    Component {
+        id: firstPage
+        FirstPage {
+        }
+    }
+
+    initialPage: firstPage
+    cover: firstPage
 }
 
 
