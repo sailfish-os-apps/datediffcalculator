@@ -32,21 +32,78 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 CoverBackground {
-    Label {
-        id: label
-        anchors.centerIn: parent
-        text: "My Cover"
-    }
+    property string dateFormat: "d MMM yy"
+    Column {
+        anchors.fill: parent
 
-    CoverActionList {
-        id: coverAction
-
-        CoverAction {
-            iconSource: "image://theme/icon-cover-next"
+        Label {
+            text: qsTr("Date difference calculator")
+            font.underline: true
+            font.pixelSize: Theme.fontSizeMedium
+            horizontalAlignment: Text.AlignHCenter
+            width: parent.width
+            wrapMode: Text.WordWrap
         }
 
-        CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
+        Label {
+            text: "From: " + Qt.formatDateTime(backend.startDate, dateFormat)
+            font.pixelSize: Theme.fontSizeSmall
+            horizontalAlignment: Text.AlignHCenter
+            width: parent.width
+            wrapMode: Text.WordWrap
+            visible: backend.diffInDays !== ""
+        }
+
+        Label {
+            text: "To: " + Qt.formatDateTime(backend.endDate, dateFormat)
+            font.pixelSize: Theme.fontSizeSmall
+            horizontalAlignment: Text.AlignHCenter
+            width: parent.width
+            wrapMode: Text.WordWrap
+            visible: backend.diffInDays !== ""
+        }
+
+        // Just a stupid separator
+        Label {
+            text: ""
+            font.pixelSize: Theme.fontSizeSmall
+            horizontalAlignment: Text.AlignHCenter
+            width: parent.width
+            wrapMode: Text.WordWrap
+            visible: backend.diffInDays !== ""
+        }
+
+        Label {
+            text: backend.diffInDays
+            font.pixelSize: Theme.fontSizeMedium
+            horizontalAlignment: Text.AlignHCenter
+            width: parent.width
+            wrapMode: Text.WordWrap
+            visible: backend.diffInDays !== ""
+        }
+        Label {
+            text: backend.diffInWeeks
+            font.pixelSize: Theme.fontSizeSmall
+            horizontalAlignment: Text.AlignHCenter
+            width: parent.width
+            wrapMode: Text.WordWrap
+            visible: backend.diffInWeeks !== ""
+        }
+        Label {
+            text: backend.diffInMonths
+            font.pixelSize: Theme.fontSizeSmall
+            horizontalAlignment: Text.AlignHCenter
+            width: parent.width
+            wrapMode: Text.WordWrap
+            visible: backend.diffInMonths !== ""
+        }
+        Label {
+            text: backend.diffInYears
+            font.pixelSize: Theme.fontSizeExtraSmall
+            horizontalAlignment: Text.AlignHCenter
+            width: parent.width
+            wrapMode: Text.WordWrap
+            visible: backend.diffInYears !== ""
         }
     }
 }

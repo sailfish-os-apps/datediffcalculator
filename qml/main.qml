@@ -22,14 +22,10 @@ import "pages"
 
 ApplicationWindow
 {
-    Component {
-        id: firstPage
-        FirstPage {
-        }
-    }
+    id: root
 
-    initialPage: firstPage
-    cover: firstPage
+    initialPage: Qt.resolvedUrl("pages/FirstPage.qml")
+    cover: Qt.resolvedUrl("cover/CoverPage.qml")
 }
 
 
